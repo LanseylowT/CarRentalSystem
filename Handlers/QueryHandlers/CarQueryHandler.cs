@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
@@ -35,7 +36,7 @@ namespace CarRentalSystem.Handlers.QueryHandlers
                                 Brand = reader["brand"].ToString(),
                                 Model = reader["model"].ToString(),
                                 PricePerDay = (decimal)reader["pricePerDay"],
-                                Availability = (bool)reader["availability"],
+                                Availability = Convert.ToBoolean(Convert.ToInt32(reader["availability"])),
                                 ImagePath = reader["imagePath"].ToString()
                             });
                         }
