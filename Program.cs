@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CarRentalSystem.Models;
+using CarRentalSystem.TestViews;
 
 namespace CarRentalSystem
 {
@@ -17,7 +18,7 @@ namespace CarRentalSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new TestLogin());
         }
     }
 }

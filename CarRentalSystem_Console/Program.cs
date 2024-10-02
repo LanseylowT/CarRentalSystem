@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using CarRentalSystem.Common;
 using CarRentalSystem.Handlers.CommandHandlers;
 using CarRentalSystem.Handlers.QueryHandlers;
 using CarRentalSystem.Models;
@@ -10,6 +11,22 @@ namespace CarRentalSystem_Console
     internal class Program
     {
         public static void Main(string[] args)
+        {
+            UserAccountTest();
+        }
+
+        private static void UserAccountTest()
+        {
+            var userQueryHandler = new UserAccountQueryHandler(Commons.ConnectionString);
+            var userCommandHandler = new UserAccountCommandHandler(Commons.ConnectionString);
+            
+            // Register a new user
+            var newUser = new UserAccount { UserName = "lansilot", Role = "Admin", Password = "Lansilot@123" };
+            userCommandHandler.RegisterUser(newUser);
+            Console.WriteLine("User Registered!");
+        }
+
+        private void CarTest()
         {
             string connectionString = "Server=localhost;Database=carrental;User ID=root;Password=Lansilot@123;";
             
@@ -38,8 +55,8 @@ namespace CarRentalSystem_Console
             {
                 Console.WriteLine($"Car ID: {car.CarId}, Brand: {car.Brand}, Model: {car.Model}, Price: {car.PricePerDay}, Available: {car.Availability}");
             }
-            
-            
+
+
         }
     }
 }
