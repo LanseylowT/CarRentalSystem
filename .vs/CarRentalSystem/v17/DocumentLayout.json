@@ -3,7 +3,39 @@
   "WorkspaceRootPath": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|c:\\users\\donla\\riderprojects\\carrentalsystem\\testviews\\testlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|c:\\users\\donla\\riderprojects\\carrentalsystem\\testviews\\rentcarpagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\rentcarpagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|c:\\users\\donla\\riderprojects\\carrentalsystem\\testviews\\rentcarpagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\rentcarpagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|c:\\users\\donla\\riderprojects\\carrentalsystem\\testviews\\availablecarspagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\availablecarspagetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\testviews\\dashboardtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\dashboardtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|c:\\users\\donla\\riderprojects\\carrentalsystem\\testviews\\dashboardtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\dashboardtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\testviews\\dashboardtest.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\dashboardtest.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\helpers\\panelstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:helpers\\panelstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\testviews\\testlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{08F8FA0C-2B3E-4641-9775-A56DDD004415}|CarRentalSystem.csproj|solutionrelative:testviews\\testlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -14,19 +46,117 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RentCarPageTest.cs",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\RentCarPageTest.cs",
+              "RelativeDocumentMoniker": "TestViews\\RentCarPageTest.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\RentCarPageTest.cs",
+              "RelativeToolTip": "TestViews\\RentCarPageTest.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAADgvxMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T04:22:06.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "RentCarPageTest.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\RentCarPageTest.cs",
+              "RelativeDocumentMoniker": "TestViews\\RentCarPageTest.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\RentCarPageTest.cs [Design]",
+              "RelativeToolTip": "TestViews\\RentCarPageTest.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T04:04:40.648Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AvailableCarsPageTest.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\AvailableCarsPageTest.cs",
+              "RelativeDocumentMoniker": "TestViews\\AvailableCarsPageTest.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\AvailableCarsPageTest.cs [Design]",
+              "RelativeToolTip": "TestViews\\AvailableCarsPageTest.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T03:43:29.561Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DashboardTest.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.Designer.cs",
+              "RelativeDocumentMoniker": "TestViews\\DashboardTest.Designer.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.Designer.cs",
+              "RelativeToolTip": "TestViews\\DashboardTest.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T22:22:39.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T21:54:03.18Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PanelStyle.cs",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\Helpers\\PanelStyle.cs",
+              "RelativeDocumentMoniker": "Helpers\\PanelStyle.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\Helpers\\PanelStyle.cs",
+              "RelativeToolTip": "Helpers\\PanelStyle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T21:49:16.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardTest.cs",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.cs",
+              "RelativeDocumentMoniker": "TestViews\\DashboardTest.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.cs",
+              "RelativeToolTip": "TestViews\\DashboardTest.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAWwDgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T21:53:26.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DashboardTest.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.cs",
+              "RelativeDocumentMoniker": "TestViews\\DashboardTest.cs",
+              "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\DashboardTest.cs [Design]",
+              "RelativeToolTip": "TestViews\\DashboardTest.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T00:55:48.062Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "TestLogin.cs [Design]",
               "DocumentMoniker": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\TestLogin.cs",
               "RelativeDocumentMoniker": "TestViews\\TestLogin.cs",
               "ToolTip": "C:\\Users\\donla\\RiderProjects\\CarRentalSystem\\TestViews\\TestLogin.cs [Design]",
               "RelativeToolTip": "TestViews\\TestLogin.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-02T13:55:17.766Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-10-02T13:55:17.766Z"
             }
           ]
         }
