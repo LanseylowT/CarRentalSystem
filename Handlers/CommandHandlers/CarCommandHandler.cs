@@ -70,5 +70,20 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                 }
             }
         }
+        
+        // Update a car availability after renting it out
+        public void UpdateCarAvailability(int carId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("UpdateCarAvailability", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("p_carId", carId);
+                    cmd.ExecuteNonQuery(); // Execute the stored procedure
+                }
+            }
+        }
     }
 }

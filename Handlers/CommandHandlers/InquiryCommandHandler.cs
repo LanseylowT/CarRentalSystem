@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
 
@@ -15,7 +16,7 @@ namespace CarRentalSystem.Handlers.CommandHandlers
     }
 
     // Add a new inquiry
-    public void AddInquiry(Inquiry inquiry)
+    public int AddInquiry(Inquiry inquiry)
     {
         using (MySqlConnection conn = new MySqlConnection(_connectionString))
         {
@@ -27,9 +28,18 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                 cmd.Parameters.AddWithValue("p_carId", inquiry.CarId);
                 cmd.Parameters.AddWithValue("p_status", inquiry.Status);
                 cmd.Parameters.AddWithValue("p_date", inquiry.Date);
-                cmd.ExecuteNonQuery();
+                // Execute the command and retrieve the CustomerId
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return Convert.ToInt32(reader["InquiryID"]);
+                    }
+                }
             }
         }
+
+        return 0;
     }
 
     // Update an existing inquiry
@@ -59,8 +69,9 @@ namespace CarRentalSystem.Handlers.CommandHandlers
             conn.Open();
             using (MySqlCommand cmd = new MySqlCommand("UpdateInquiryStatus", conn))
             {
-                cmd.Parameters.AddWithValue("p_newStatus", newStatus);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("p_inquiryId", inquiryId);
+                cmd.Parameters.AddWithValue("p_newStatus", newStatus);
                 cmd.ExecuteNonQuery();
             }
         }

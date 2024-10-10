@@ -80,43 +80,39 @@ namespace CarRentalSystem.TestViews
 
         private void btnRent_Click(object sender, EventArgs e)
         {
-            // Get values from the text boxes
-            string gender = cmbGender.SelectedItem?.ToString();
-            string firstName = txtFirstName.Text;
-            string middleName = txtMiddleName.Text;
-            string lastName = txtLastName.Text;
-            string contact = txtContact.Text;
-            string email = txtEmail.Text;
-            int carId = Convert.ToInt32(cmbCarId.SelectedItem);
-            
-            // Check if any text boxes are empty or contain only whitespace
-            if (string.IsNullOrWhiteSpace(firstName) ||
-                string.IsNullOrWhiteSpace(middleName) ||
-                string.IsNullOrWhiteSpace(lastName) ||
-                string.IsNullOrWhiteSpace(contact) ||
-                string.IsNullOrWhiteSpace(gender) ||
-                string.IsNullOrWhiteSpace(email))
+            if (!ValidateFormInputs())
             {
                 lblErrorMessage.Text = "All fields must be filled out.";
                 lblErrorMessage.ForeColor = Color.Red;
                 lblErrorMessage.Visible = true;
-            }
-            else
-            {
-                lblErrorMessage.Visible = false;  // Hide error message if all fields are filled
+                return;
             }
 
             Customer = new Customer
             {
-                FirstName = firstName,
-                MiddleName = middleName,
-                LastName = lastName,
-                Gender = gender,
-                ContactInfo = contact,
-                EmailAddress = email
+                FirstName = txtFirstName.Text,
+                MiddleName = txtMiddleName.Text,
+                LastName = txtLastName.Text,
+                Gender = cmbGender.SelectedItem?.ToString(),
+                ContactInfo = txtContact.Text,
+                EmailAddress = txtEmail.Text
             };
             
-            SaveCustomerDataAndRental(Customer, carId);
+            int carId = Convert.ToInt32(cmbCarId.SelectedValue);
+            // Confirm Rent action
+            var confirmResult = MessageBox.Show(@"Are you sure?",
+                @"Confirm Rent",
+                MessageBoxButtons.YesNo);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                SaveCustomerDataAndRental(Customer, carId);
+                
+                // Reload the DataGridView
+                LoadCarDataIntoDataGrid();
+
+                MessageBox.Show(@"Rented successfully!");
+            }
         }
 
         private void dtpDateRented_ValueChanged(object sender, EventArgs e)
@@ -129,7 +125,7 @@ namespace CarRentalSystem.TestViews
             if (dateRented < currentDate)
             {
                 // Show error message
-                MessageBox.Show("The Date Rented cannot be earlier than today's date.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"The Date Rented cannot be earlier than today's date.", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dtpDateRented.Value = currentDate;
             }
             UpdateTotalPrice(dateRented, dateReturned);
@@ -167,7 +163,7 @@ namespace CarRentalSystem.TestViews
 
         private void txtFirstName_TextChanged(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         private void txtContact_KeyPress(object sender, KeyPressEventArgs e)
@@ -229,13 +225,13 @@ namespace CarRentalSystem.TestViews
                 else
                 {
                     // If lblTotal is not a valid number, clear the balance label
-                    lblBalance.Text = "Balance: N/A";
+                    lblBalance.Text = @"Balance: N/A";
                 }
             }
             else
             {
                 // If the input is not a valid number, clear the balance label
-                lblBalance.Text = "Balance: N/A";
+                lblBalance.Text = @"Balance: N/A";
             }
         }
         
@@ -260,21 +256,17 @@ namespace CarRentalSystem.TestViews
         {
             try
             {
-                DateTime dateRented = dtpDateRented.Value;
-                DateTime dateReturned = dtpDateReturned.Value;
-                
                 int customerId = _customerCommandHandler.AddCustomer(customer);
 
-                if (!string.IsNullOrWhiteSpace(txtAmount.Text))
+                if (decimal.TryParse(txtAmount.Text, out decimal totalAmount))
                 {
-                    decimal totalAmount = Convert.ToDecimal(txtAmount.Text);
                     var rental = new Rental
                     {
                         CustomerId = customerId,
                         CarId = carId,
                         Status = "Rented",
-                        StartDate = dateRented,
-                        EndDate = dateReturned,
+                        StartDate = dtpDateRented.Value,
+                        EndDate = dtpDateReturned.Value,
                         TotalAmount = totalAmount
                     };
                     _rentalCommandHandler.AddRental(rental);
@@ -284,6 +276,8 @@ namespace CarRentalSystem.TestViews
                     MessageBox.Show(@"Amount should not be empty");
                 }
                 
+                // Update the availability of the car for obvious reasons
+                _carCommandHandler.UpdateCarAvailability(carId);
                 MessageBox.Show(@"Customer and Rental added successfully!");
             }
             catch (Exception e)
@@ -332,8 +326,6 @@ namespace CarRentalSystem.TestViews
             {
                 // Get the selected car based on the Car ID
                 Car selectedCar = _availableCars[cmbCarId.SelectedIndex];
-                Console.WriteLine($@"Date Rented: {dateRented}, Date Returned: {dateReturned}");
-                Console.WriteLine($@"Car Brand: {selectedCar.Brand}");
 
                 // Calculate the total days and update the total label
                 int totalDays = (dateReturned - dateRented).Days + 1; // Include the start day
@@ -362,6 +354,37 @@ namespace CarRentalSystem.TestViews
                     dtgAvailableCars.Rows.Add(car.CarId, car.Brand, car.Model, car.PricePerDay, availability);
                 }
             }
+        }
+
+        public void LoadDataFromInquiry(int carId)
+        {
+            // Load the Car details
+            Car car = _carQueryHandler.GetCarById(carId);
+            // Ensure the ValueMember is set to the property that holds the car ID
+            cmbCarId.ValueMember = "CarId";
+            // Set the SelectedValue to the carId parameter
+            cmbCarId.SelectedValue = carId;
+            txtBrand.Text = car.Brand;
+            txtModel.Text = car.Model;
+            
+            // Load the Customer details
+            cmbGender.ValueMember = "Gender";
+            cmbGender.SelectedItem = Customer.Gender;
+            txtEmail.Text = Customer.EmailAddress;
+            txtFirstName.Text = Customer.FirstName;
+            txtMiddleName.Text = Customer.MiddleName;
+            txtLastName.Text = Customer.LastName;
+            txtContact.Text = Customer.ContactInfo;
+        }
+        
+        private bool ValidateFormInputs()
+        {
+            return !string.IsNullOrWhiteSpace(txtFirstName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtMiddleName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtLastName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtContact.Text) &&
+                   cmbGender.SelectedItem != null &&
+                   !string.IsNullOrWhiteSpace(txtEmail.Text);
         }
     }
 }

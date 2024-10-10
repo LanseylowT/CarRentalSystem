@@ -32,6 +32,7 @@ namespace CarRentalSystem.TestViews
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearGrid = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btnRent = new System.Windows.Forms.Button();
@@ -63,6 +64,7 @@ namespace CarRentalSystem.TestViews
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnClearGrid);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.btnRent);
@@ -86,16 +88,27 @@ namespace CarRentalSystem.TestViews
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(859, 244);
+            this.panel1.Size = new System.Drawing.Size(859, 258);
             this.panel1.TabIndex = 4;
+            // 
+            // btnClearGrid
+            // 
+            this.btnClearGrid.Location = new System.Drawing.Point(760, 220);
+            this.btnClearGrid.Name = "btnClearGrid";
+            this.btnClearGrid.Size = new System.Drawing.Size(87, 35);
+            this.btnClearGrid.TabIndex = 25;
+            this.btnClearGrid.Text = "Clear Grid";
+            this.btnClearGrid.UseVisualStyleBackColor = true;
+            this.btnClearGrid.Visible = false;
+            this.btnClearGrid.Click += new System.EventHandler(this.btnClearGrid_Click);
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(769, 209);
+            this.btnClear.Location = new System.Drawing.Point(638, 220);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(87, 35);
             this.btnClear.TabIndex = 24;
-            this.btnClear.Text = "Clear";
+            this.btnClear.Text = "Clear Fields";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Visible = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -344,6 +357,8 @@ namespace CarRentalSystem.TestViews
             ((System.ComponentModel.ISupportInitialize)(this.dtgCustomerInquiry)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button btnClearGrid;
 
         private System.Windows.Forms.Button btnClear;
 

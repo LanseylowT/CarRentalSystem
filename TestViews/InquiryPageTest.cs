@@ -12,7 +12,6 @@ namespace CarRentalSystem.TestViews
 {
     public partial class InquiryPageTest : Form
     {
-        
         private readonly CustomerCommandHandler _customerCommandHandler;
         private readonly CustomerQueryHandler _customerQueryHandler;
         private readonly CarQueryHandler _carQueryHandler;
@@ -21,7 +20,8 @@ namespace CarRentalSystem.TestViews
         private Panel _panel;
         private Customer _customer;
         private List<Inquiry> _inquiries;
-        
+        private int InquiryId;
+
         public InquiryPageTest(Panel panel)
         {
             InitializeComponent();
@@ -38,99 +38,98 @@ namespace CarRentalSystem.TestViews
         // ------------------------- Listener Functions ------------------------- \\
         private void btnInquire_Click(object sender, EventArgs e)
         {
-            // Get values from the text boxes
-            string gender = cmbGender.SelectedItem?.ToString();
-            string firstName = txtFirstName.Text;
-            string middleName = txtMiddleName.Text;
-            string lastName = txtLastName.Text;
-            string contact = txtContact.Text;
-            
-            
-            // Check if any text boxes are empty or contain only whitespace
-            if (string.IsNullOrWhiteSpace(firstName) ||
-                string.IsNullOrWhiteSpace(middleName) ||
-                string.IsNullOrWhiteSpace(lastName) ||
-                string.IsNullOrWhiteSpace(contact) ||
-                string.IsNullOrWhiteSpace(gender))
+            if (!ValidateInquiryInputs())
             {
                 lblErrorMessage.Text = "All fields must be filled out.";
                 lblErrorMessage.ForeColor = Color.Red;
                 lblErrorMessage.Visible = true;
-            }
-            else
-            {
-                lblErrorMessage.Visible = false;  // Hide error message if all fields are filled
+                return;
             }
 
-            _customer = new Customer
+            var customer = new Customer
             {
-                FirstName = firstName,
-                MiddleName = middleName,
-                LastName = lastName,
-                Gender = gender,
-                ContactInfo = contact,
-                EmailAddress = ""
+                FirstName = txtFirstName.Text,
+                MiddleName = txtMiddleName.Text,
+                LastName = txtLastName.Text,
+                Gender = cmbGender.SelectedItem?.ToString(),
+                ContactInfo = txtContact.Text
             };
-            
-            if (_customer != null)
-            {
-                int carId = Convert.ToInt32(cmbCarId.SelectedItem?.ToString());
-                SubmitInquiry(_customer, carId);
-                DisplayInquiries();
-            }
-            else
-            {
-                MessageBox.Show(@"Please select a customer first");
-            }
+
+            int carId = Convert.ToInt32(cmbCarId.SelectedValue);
+            SubmitInquiry(customer, carId);
+            DisplayInquiries();
         }
-        
+
         // TODO: Implement renting out the selected "inquiry" cell from the data grid
         private void btnRent_Click(object sender, EventArgs e)
         {
-            // Get values from the text boxes
-            string gender = cmbGender.SelectedItem?.ToString();
-            string firstName = txtFirstName.Text;
-            string middleName = txtMiddleName.Text;
-            string lastName = txtLastName.Text;
-            string contact = txtContact.Text;
+            // Validate that a customer has been selected from the inquiry list
+            if (InquiryId == 0)
+            {
+                lblErrorMessage.Text = "No inquiry selected for rental.";
+                lblErrorMessage.ForeColor = Color.Red;
+                lblErrorMessage.Visible = true;
+                return;
+            }
             
-            
-            // Check if any text boxes are empty or contain only whitespace
-            if (string.IsNullOrWhiteSpace(firstName) ||
-                string.IsNullOrWhiteSpace(middleName) ||
-                string.IsNullOrWhiteSpace(lastName) ||
-                string.IsNullOrWhiteSpace(contact) ||
-                string.IsNullOrWhiteSpace(gender))
+            // Validate that all necessary input fields are filled
+            if (!ValidateInquiryInputs())
             {
                 lblErrorMessage.Text = "All fields must be filled out.";
                 lblErrorMessage.ForeColor = Color.Red;
                 lblErrorMessage.Visible = true;
+                return;
             }
-            else
-            {
-                lblErrorMessage.Visible = false;  // Hide error message if all fields are filled
-            }
-            
+
             var rentCarPage = new RentCarPageTest();
             rentCarPage.Customer = new Customer
             {
-                FirstName = firstName,
-                MiddleName = middleName,
-                LastName = lastName,
-                Gender = gender,
-                ContactInfo = contact,
+                FirstName = txtFirstName.Text,
+                MiddleName = txtMiddleName.Text,
+                LastName = txtLastName.Text,
+                Gender = cmbGender.SelectedItem?.ToString(),
+                ContactInfo = txtContact.Text,
                 EmailAddress = ""
             };
-            
-            LoadForm(rentCarPage);
-            // TODO: Implement this shit for once
+            // Console.WriteLine($"Gender: {gender}");
+            try
+            {
+                // Retrieve the car and inquiry information
+                int carId = Convert.ToInt32(cmbCarId.SelectedValue);
+                var car = _carQueryHandler.GetCarById(carId);
+                
+                // Check if the car is available before proceeding
+                if (!car.Availability)
+                {
+                    lblErrorMessage.Text = "Car is not available for rent.";
+                    lblErrorMessage.ForeColor = Color.Red;
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+                
+                // Confirm the rental action with the user
+                var confirmResult = MessageBox.Show(@"Are you sure you want to rent this car?", @"Confirm Rent", MessageBoxButtons.YesNo);
+                if (confirmResult != DialogResult.Yes)
+                {
+                    return;
+                }
+                
+                ConvertInquiryToRental(InquiryId);
+                LoadForm(rentCarPage);
+                rentCarPage.LoadDataFromInquiry(carId);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
-        
+
         private void InquiryPageTest_Click(object sender, EventArgs e)
         {
             btnRent.Visible = false;
         }
-        
+
         private void dtgCustomerInquiry_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ClearFields();
@@ -138,12 +137,14 @@ namespace CarRentalSystem.TestViews
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = dtgCustomerInquiry.Rows[e.RowIndex];
-                
+
                 btnRent.Visible = true;
                 int carId = (int)selectedRow.Cells["CarId"].Value;
-                int inquiryId = (int)selectedRow.Cells["InquiryId"].Value;
+                InquiryId = (int)selectedRow.Cells["InquiryId"].Value;
+                var inquiry = _inquiryQueryHandler.GetInquiryById(InquiryId);
+                // Console.WriteLine($"Inquiry ID: {InquiryId}");
                 var car = _carQueryHandler.GetCarById(carId);
-                var customer = _customerQueryHandler.GetCustomerById(inquiryId);
+                var customer = _customerQueryHandler.GetCustomerById(inquiry.CustomerId);
                 cmbCarId.SelectedItem = carId;
                 txtBrand.Text = car.Brand;
                 txtModel.Text = car.Model;
@@ -152,9 +153,21 @@ namespace CarRentalSystem.TestViews
                 txtLastName.Text = customer.LastName;
                 txtContact.Text = customer.ContactInfo;
                 cmbGender.SelectedItem = customer.Gender;
+
+                if (car.Availability)
+                {
+                    btnRent.Enabled = true;
+                }
+                else
+                {
+                    lblErrorMessage.Text = "Customer Cannot Rent,\n Car is not Available";
+                    lblErrorMessage.ForeColor = Color.Red;
+                    lblErrorMessage.Visible = true;
+                    btnRent.Enabled = false;
+                }
             }
         }
-        
+
         private void txtContact_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow only digits and control characters (like Backspace)
@@ -164,14 +177,20 @@ namespace CarRentalSystem.TestViews
             }
         }
 
+        private void btnClearGrid_Click(object sender, EventArgs e)
+        {
+            CleanInquiryDataGrid();
+            DisplayInquiries();
+        }
+
         private void txtContact_TextChanged(object sender, EventArgs e)
         {
             // Remove any non-digit characters from the pasted text
             txtContact.Text = new string(txtContact.Text.Where(char.IsDigit).ToArray());
-            
+
             // Set the cursor position to the end of the text
             txtContact.SelectionStart = txtContact.Text.Length;
-            
+
             // Check for valid length
             int length = txtContact.Text.Length;
 
@@ -180,14 +199,13 @@ namespace CarRentalSystem.TestViews
                 lblErrorMessage.Text = "Contact number must be 10 or 11 \n digits long.";
                 lblErrorMessage.ForeColor = Color.Red;
                 lblErrorMessage.Visible = true;
-                
             }
             else
             {
-                lblErrorMessage.Visible = false;  // Hide error message if valid
+                lblErrorMessage.Visible = false; // Hide error message if valid
             }
         }
-        
+
         private void cmbCarId_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCarId.SelectedValue != null)
@@ -202,78 +220,76 @@ namespace CarRentalSystem.TestViews
                 }
             }
         }
-        
+
         private void InquiryPageTest_Load(object sender, EventArgs e)
         {
-            CleanInquiryDataGrid();
+            // CleanInquiryDataGrid();
             SetupDataGridView();
             SetupCarIdIntoCombobox();
             SetupErrorMessageLabel();
             DisplayInquiries();
         }
-        
-        
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearFields();
+        }
+
+
         // ------------------------- Helper Functions ------------------------- \\
         private void SubmitInquiry(Customer customer, int carId)
         {
-            
             // Add customer or retrieve customer ID
             int customerId = _customerCommandHandler.AddCustomer(customer);
-            Inquiry inquiry = new Inquiry
+            var inquiry = new Inquiry
             {
                 CustomerId = customerId,
                 CarId = carId,
                 Status = "Inquired",
                 Date = DateTime.Now
             };
-            
+
             // Add inquiry for the customer
             _inquiryCommandHandler.AddInquiry(inquiry);
-            
-            MessageBox.Show("Inquiry successfully submitted!");
+
+            MessageBox.Show(@"Inquiry successfully submitted!");
         }
-        
+
         private void ConvertInquiryToRental(int inquiryId)
         {
             // Update the inquiry status to 'Converted to Rental'
             _inquiryCommandHandler.UpdateInquiryStatus(inquiryId, "Rented");
-            MessageBox.Show("Inquiry has been converted to a rental.");
+            // MessageBox.Show(@"Inquiry has been converted to a rental.");
         }
 
         private void DisplayInquiries()
         {
             // Clear the DataGridView rows before loading new data
             dtgCustomerInquiry.Rows.Clear();
-            Customer customer;
-            Car car;
 
             // Add rows to the DataGridView
-            if (_inquiries != null)
+            foreach (var inquiry in _inquiries)
             {
-                foreach (var inquiry in _inquiries)
-                {
-                    customer = _customerQueryHandler.GetCustomerById(inquiry.CustomerId);
-                    car = _carQueryHandler.GetCarById(inquiry.CarId);
-                    string availability = car.Availability ? "Available" : "Not Available";
-                    
-                    dtgCustomerInquiry.Rows.Add(
-                        inquiry.InquiryId,
-                        inquiry.CarId,
-                        car.Brand,
-                        car.Model,
-                        customer.FirstName + " " +customer.LastName,
-                        customer.ContactInfo,
-                        availability
-                    );
-                }
+                var customer = _customerQueryHandler.GetCustomerById(inquiry.CustomerId);
+                var car = _carQueryHandler.GetCarById(inquiry.CarId);
+                dtgCustomerInquiry.Rows.Add(
+                    inquiry.InquiryId,
+                    inquiry.CarId,
+                    car.Brand,
+                    car.Model,
+                    $"{customer.FirstName} {customer.LastName}",
+                    customer.ContactInfo,
+                    inquiry.Status,
+                    car.Availability ? "Available" : "Not Available");
             }
         }
+
 
         private void LoadForm(object form)
         {
             if (_panel.Controls.Count > 0)
                 _panel.Controls.RemoveAt(0);
-            
+
             Form f = form as Form;
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
@@ -299,7 +315,7 @@ namespace CarRentalSystem.TestViews
             // Re-enable the text fields and combo box
             cmbGender.Enabled = true;
         }
-        
+
         private void SetupDataGridView()
         {
             // Set the column header style
@@ -318,11 +334,13 @@ namespace CarRentalSystem.TestViews
             // Set row styling
             dtgCustomerInquiry.RowsDefaultCellStyle.BackColor = Color.White; // White background for rows
             dtgCustomerInquiry.RowsDefaultCellStyle.ForeColor = Color.Black; // Black text for rows
-            dtgCustomerInquiry.RowsDefaultCellStyle.SelectionBackColor = Color.LightGray; // Row selection background color
+            dtgCustomerInquiry.RowsDefaultCellStyle.SelectionBackColor =
+                Color.LightGray; // Row selection background color
             dtgCustomerInquiry.RowsDefaultCellStyle.SelectionForeColor = Color.Black; // Row selection text color
 
             // Set alternating row style
-            dtgCustomerInquiry.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray; // Alternating row background
+            dtgCustomerInquiry.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.LightGray; // Alternating row background
 
             dtgCustomerInquiry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
@@ -334,20 +352,21 @@ namespace CarRentalSystem.TestViews
             dtgCustomerInquiry.Columns.Add("FirstName", "Name");
             dtgCustomerInquiry.Columns.Add("Contact", "Contact");
             dtgCustomerInquiry.Columns.Add("Status", "Status");
+            dtgCustomerInquiry.Columns.Add("CarStatus", "Car Status");
         }
 
         private void SetupCarIdIntoCombobox()
         {
             // Get all cars
             List<Car> cars = _carQueryHandler.GetAllCars();
-            
+
             // Extract the car ID's
             List<int> carIds = cars.Select(car => car.CarId).ToList();
-            
+
             // Populate the combo boc with car ID's
             cmbCarId.DataSource = carIds;
         }
-        
+
         private void SetupErrorMessageLabel()
         {
             lblErrorMessage.AutoSize = false;
@@ -360,9 +379,13 @@ namespace CarRentalSystem.TestViews
             _inquiryCommandHandler.DeleteRentedInquiries();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private bool ValidateInquiryInputs()
         {
-            throw new System.NotImplementedException();
+            return !string.IsNullOrWhiteSpace(txtFirstName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtMiddleName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtLastName.Text) &&
+                   !string.IsNullOrWhiteSpace(txtContact.Text) &&
+                   cmbGender.SelectedItem != null;
         }
     }
 }
