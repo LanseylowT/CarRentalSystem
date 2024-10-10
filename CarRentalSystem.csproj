@@ -149,25 +149,29 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\CommandHandlers\AnalyticsCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\CarCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\CustomerCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\InquiryCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\RentalCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\UserAccountCommandHandler.cs" />
     <Compile Include="Handlers\CommandHandlers\UserRentalCommandHandler.cs" />
+    <Compile Include="Handlers\QueryHandlers\AnalyticsQueryHandler.cs" />
     <Compile Include="Handlers\QueryHandlers\CarQueryHandler.cs" />
-    <Compile Include="Handlers\QueryHandlers\CustomerQueyHandler.cs" />
+    <Compile Include="Handlers\QueryHandlers\CustomerQueryHandler.cs" />
     <Compile Include="Handlers\QueryHandlers\InquiryQueryHandler.cs" />
     <Compile Include="Handlers\QueryHandlers\RentalQueryHandler.cs" />
     <Compile Include="Handlers\QueryHandlers\UserAccountQueryHandler.cs" />
     <Compile Include="Handlers\QueryHandlers\UserRentalQueryHandler.cs" />
     <Compile Include="Helpers\PanelStyle.cs" />
+    <Compile Include="Models\Analytics.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Inquiry.cs" />
     <Compile Include="Models\Rental.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserRental.cs" />
+    <Compile Include="Native\Native.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestViews\AvailableCarsPageTest.cs">
@@ -182,11 +186,23 @@
     <Compile Include="TestViews\DashboardTest.Designer.cs">
       <DependentUpon>DashboardTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestViews\GlassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestViews\GlassForm.Designer.cs">
+      <DependentUpon>GlassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestViews\HomePageTest.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TestViews\HomePageTest.Designer.cs">
       <DependentUpon>HomePageTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestViews\InquiryPageTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestViews\InquiryPageTest.Designer.cs">
+      <DependentUpon>InquiryPageTest.cs</DependentUpon>
     </Compile>
     <Compile Include="TestViews\RentCarPageTest.cs">
       <SubType>Form</SubType>
@@ -240,8 +256,14 @@
     <EmbeddedResource Include="TestViews\DashboardTest.resx">
       <DependentUpon>DashboardTest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TestViews\GlassForm.resx">
+      <DependentUpon>GlassForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestViews\HomePageTest.resx">
       <DependentUpon>HomePageTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestViews\InquiryPageTest.resx">
+      <DependentUpon>InquiryPageTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestViews\RentCarPageTest.resx">
       <DependentUpon>RentCarPageTest.cs</DependentUpon>
@@ -271,9 +293,17 @@
     <Content Include="Assets\Icons\car.png" />
     <Content Include="Assets\Icons\check.png" />
     <Content Include="Assets\Icons\home.png" />
+    <Content Include="Assets\Icons\inquire.png" />
+    <Content Include="Assets\Icons\inquire3.png" />
     <Content Include="Assets\Icons\money.png" />
     <Content Include="Assets\Icons\people.png" />
+    <Content Include="Assets\Icons\rent_car.png" />
     <Content Include="Assets\Icons\user_test.png" />
+    <Content Include="Resources\inquire.png" />
+    <Content Include="Resources\inquire1.png" />
+    <Content Include="Resources\inquire2.png" />
+    <Content Include="Resources\inquire3.png" />
+    <Content Include="Resources\rent_car.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

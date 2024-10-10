@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using CarRentalSystem.Common;
@@ -15,7 +16,7 @@ namespace CarRentalSystem.TestViews
         private readonly CarQueryHandler _carQueryHandler;
         private readonly CarCommandHandler _carCommandHandler;
         private Car _car;
-        private DataGridViewRow selectedRow;
+        private DataGridViewRow _selectedRow;
 
         public AvailableCarsPageTest()
         {
@@ -32,24 +33,28 @@ namespace CarRentalSystem.TestViews
         {
             // Clear the fields first
             ClearFields();
-            
+
             // Disable first the Car ID text box and the price
             txtPrice.Enabled = false;
             txtPrice.ReadOnly = true;
-            cmbStatus.Enabled = false;
+            // cmbStatus.Enabled = false;
 
             // Check if a valid row is selected (not the header)
             if (e.RowIndex >= 0)
             {
-                selectedRow = dtgCarList.Rows[e.RowIndex];
+                _selectedRow = dtgCarList.Rows[e.RowIndex];
 
                 // Set the text of the textboxes based on the selected row's cell
-                txtCarId.Text = selectedRow.Cells["CarID"].Value.ToString();
-                txtBrand.Text = selectedRow.Cells["Brand"].Value.ToString();
-                txtModel.Text = selectedRow.Cells["Model"].Value.ToString();
-                txtPrice.Text = selectedRow.Cells["Price"].Value.ToString();
-                string availability = selectedRow.Cells["Status"].Value.ToString();
+                int carId = (int)_selectedRow.Cells["CarID"].Value;
+
+                var car = _carQueryHandler.GetCarById(carId);
+                txtCarId.Text = car.CarId.ToString();
+                txtBrand.Text = car.Brand;
+                txtModel.Text = car.Model;
+                txtPrice.Text = car.PricePerDay.ToString(CultureInfo.InvariantCulture);
+                string availability = car.Availability ? "Available" : "Not Available";
                 cmbStatus.SelectedItem = availability;
+                pbSelectedImage.Image = Image.FromFile(car.ImagePath);
             }
         }
 
@@ -62,9 +67,9 @@ namespace CarRentalSystem.TestViews
             string selectedStatus = cmbStatus.SelectedItem?.ToString();
             bool availability = selectedStatus == "Available";
 
-            if (selectedRow == null)
+            if (_selectedRow == null)
             {
-                MessageBox.Show("Please select a car to update.");
+                MessageBox.Show(@"Please select a car to update.");
                 return;
             }
 
@@ -74,17 +79,17 @@ namespace CarRentalSystem.TestViews
             _car.Model = model;
             _car.PricePerDay = price;
             _car.Availability = availability;
-            _car.ImagePath = _car.ImagePath;  // Assuming the image path is unchanged
+            _car.ImagePath = _car.ImagePath; // Assuming the image path is unchanged
 
             // Call the UpdateCar method from the command handler
             _carCommandHandler.UpdateCar(_car);
 
             // Reload the DataGridView
             LoadCarDataIntoDataGrid();
-    
-            MessageBox.Show("Car updated successfully!");
+
+            MessageBox.Show(@"Car updated successfully!");
         }
-        
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             // Get values from the text boxes
@@ -93,26 +98,26 @@ namespace CarRentalSystem.TestViews
             string model = txtModel.Text.Trim();
             decimal price = Convert.ToDecimal(txtPrice.Text.Trim());
             string selectedStatus = cmbStatus.SelectedItem?.ToString();
-            
+
             // Check if the car already exists in the DataGridView
             foreach (DataGridViewRow row in dtgCarList.Rows)
             {
                 if (row.Cells["CarID"].Value != null && row.Cells["CarID"].Value.ToString() == carId)
                 {
-                    MessageBox.Show("The selected car already exists in the list!");
+                    MessageBox.Show(@"The selected car already exists in the list!");
                     return;
                 }
             }
 
             if (!txtPrice.Enabled)
             {
-                MessageBox.Show("Cannot add selected car. Option is redundant!");
+                MessageBox.Show(@"Cannot add selected car. Option is redundant!");
                 return;
             }
 
             if (pbSelectedImage.Image == null)
             {
-                MessageBox.Show("Please select an image for the car!");
+                MessageBox.Show(@"Please select an image for the car!");
                 return;
             }
 
@@ -121,7 +126,7 @@ namespace CarRentalSystem.TestViews
             _car.PricePerDay = price;
             _car.Availability = selectedStatus == "Available";
             _carCommandHandler.AddCar(_car);
-            
+
             LoadCarDataIntoDataGrid();
         }
 
@@ -145,7 +150,7 @@ namespace CarRentalSystem.TestViews
         {
             // Create a new instance of OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            
+
             // Set the properties of OpenFile of OpenFileDialog (optional)
             openFileDialog.Filter = @"Image Files|*.jpg;*.jpeg;*.png|All Files|*.*";
             openFileDialog.FilterIndex = 1;
@@ -167,7 +172,7 @@ namespace CarRentalSystem.TestViews
             LoadCarDataIntoDataGrid();
         }
 
-        
+
         // Helper Functions
         private void SetupDataGridView()
         {
@@ -207,7 +212,7 @@ namespace CarRentalSystem.TestViews
         {
             // Clear the DataGridView rows before loading new data
             dtgCarList.Rows.Clear();
-            
+
             List<Car> cars = _carQueryHandler.GetAllCars();
 
             // Add rows to the DataGridView
@@ -249,9 +254,9 @@ namespace CarRentalSystem.TestViews
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (selectedRow == null)
+            if (_selectedRow == null)
             {
-                MessageBox.Show("Please select a car to delete.");
+                MessageBox.Show(@"Please select a car to delete.");
                 return;
             }
 
@@ -259,10 +264,10 @@ namespace CarRentalSystem.TestViews
             int carId = Convert.ToInt32(txtCarId.Text.Trim());
 
             // Confirm delete action
-            var confirmResult = MessageBox.Show("Are you sure you want to delete this car?", 
-                "Confirm Delete", 
+            var confirmResult = MessageBox.Show(@"Are you sure you want to delete this car?",
+                @"Confirm Delete",
                 MessageBoxButtons.YesNo);
-    
+
             if (confirmResult == DialogResult.Yes)
             {
                 // Call the DeleteCar method from the command handler
@@ -271,7 +276,7 @@ namespace CarRentalSystem.TestViews
                 // Reload the DataGridView
                 LoadCarDataIntoDataGrid();
 
-                MessageBox.Show("Car deleted successfully!");
+                MessageBox.Show(@"Car deleted successfully!");
             }
         }
     }

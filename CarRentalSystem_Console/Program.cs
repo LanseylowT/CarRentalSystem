@@ -31,7 +31,7 @@ namespace CarRentalSystem_Console
             string connectionString = "Server=localhost;Database=carrental;User ID=root;Password=Lansilot@123;";
             
             // Test CommandHandler
-            var carCommandHandler = new CarCommandHandler(connectionString);
+            var carCommandHandler = new CarCommandHandler(Commons.ConnectionString);
             var carQueryHandler = new CarQueryHandler(connectionString);
             
             // Add a new car

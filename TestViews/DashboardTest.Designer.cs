@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblRole = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pnlMain = new System.Windows.Forms.Panel();
+            this.btnInquiry = new System.Windows.Forms.Button();
             this.btnAvailableCars = new System.Windows.Forms.Button();
             this.btnRentCar = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblRole = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pnlMain = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,6 +45,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.btnInquiry);
             this.panel1.Controls.Add(this.btnAvailableCars);
             this.panel1.Controls.Add(this.btnRentCar);
             this.panel1.Controls.Add(this.btnHome);
@@ -55,6 +57,64 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(300, 625);
             this.panel1.TabIndex = 0;
+            // 
+            // btnInquiry
+            // 
+            this.btnInquiry.Image = global::CarRentalSystem.Properties.Resources.inquire1;
+            this.btnInquiry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInquiry.Location = new System.Drawing.Point(46, 497);
+            this.btnInquiry.Name = "btnInquiry";
+            this.btnInquiry.Size = new System.Drawing.Size(188, 60);
+            this.btnInquiry.TabIndex = 5;
+            this.btnInquiry.Text = "Inquire";
+            this.btnInquiry.UseVisualStyleBackColor = true;
+            this.btnInquiry.Click += new System.EventHandler(this.btnInquiry_Click);
+            // 
+            // btnAvailableCars
+            // 
+            this.btnAvailableCars.Image = global::CarRentalSystem.Properties.Resources.car;
+            this.btnAvailableCars.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAvailableCars.Location = new System.Drawing.Point(46, 345);
+            this.btnAvailableCars.Name = "btnAvailableCars";
+            this.btnAvailableCars.Size = new System.Drawing.Size(188, 57);
+            this.btnAvailableCars.TabIndex = 4;
+            this.btnAvailableCars.Text = "Available Cars";
+            this.btnAvailableCars.UseVisualStyleBackColor = true;
+            this.btnAvailableCars.Click += new System.EventHandler(this.btnAvailableCars_Click);
+            // 
+            // btnRentCar
+            // 
+            this.btnRentCar.Image = global::CarRentalSystem.Properties.Resources.rent_car;
+            this.btnRentCar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRentCar.Location = new System.Drawing.Point(46, 421);
+            this.btnRentCar.Name = "btnRentCar";
+            this.btnRentCar.Size = new System.Drawing.Size(188, 57);
+            this.btnRentCar.TabIndex = 4;
+            this.btnRentCar.Text = "Rent Car";
+            this.btnRentCar.UseVisualStyleBackColor = true;
+            this.btnRentCar.Click += new System.EventHandler(this.btnRentCar_Click);
+            // 
+            // btnHome
+            // 
+            this.btnHome.Image = global::CarRentalSystem.Properties.Resources.home;
+            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHome.Location = new System.Drawing.Point(46, 268);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(188, 59);
+            this.btnHome.TabIndex = 4;
+            this.btnHome.Text = "Home";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CarRentalSystem.Properties.Resources.user_test;
+            this.pictureBox1.Location = new System.Drawing.Point(95, 31);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 69);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // lblRole
             // 
@@ -91,52 +151,6 @@
             this.pnlMain.Size = new System.Drawing.Size(883, 625);
             this.pnlMain.TabIndex = 1;
             // 
-            // btnAvailableCars
-            // 
-            this.btnAvailableCars.Image = global::CarRentalSystem.Properties.Resources.car;
-            this.btnAvailableCars.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAvailableCars.Location = new System.Drawing.Point(46, 370);
-            this.btnAvailableCars.Name = "btnAvailableCars";
-            this.btnAvailableCars.Size = new System.Drawing.Size(188, 57);
-            this.btnAvailableCars.TabIndex = 4;
-            this.btnAvailableCars.Text = "Available Cars";
-            this.btnAvailableCars.UseVisualStyleBackColor = true;
-            this.btnAvailableCars.Click += new System.EventHandler(this.btnAvailableCars_Click);
-            // 
-            // btnRentCar
-            // 
-            this.btnRentCar.Image = global::CarRentalSystem.Properties.Resources.check;
-            this.btnRentCar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRentCar.Location = new System.Drawing.Point(46, 446);
-            this.btnRentCar.Name = "btnRentCar";
-            this.btnRentCar.Size = new System.Drawing.Size(188, 57);
-            this.btnRentCar.TabIndex = 4;
-            this.btnRentCar.Text = "Rent Car";
-            this.btnRentCar.UseVisualStyleBackColor = true;
-            this.btnRentCar.Click += new System.EventHandler(this.btnRentCar_Click);
-            // 
-            // btnHome
-            // 
-            this.btnHome.Image = global::CarRentalSystem.Properties.Resources.home;
-            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHome.Location = new System.Drawing.Point(46, 293);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(188, 59);
-            this.btnHome.TabIndex = 4;
-            this.btnHome.Text = "Home";
-            this.btnHome.UseVisualStyleBackColor = true;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CarRentalSystem.Properties.Resources.user_test;
-            this.pictureBox1.Location = new System.Drawing.Point(95, 31);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 69);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
             // DashboardTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,12 +161,14 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DashboardTest";
             this.Text = "DashboardTest";
+            this.Load += new System.EventHandler(this.DashboardTest_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Button btnInquiry;
 
         #endregion
 

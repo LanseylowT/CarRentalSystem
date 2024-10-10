@@ -199,7 +199,7 @@ namespace CarRentalSystem.TestViews
             // 
             // cartesianCustomerData
             // 
-            this.cartesianCustomerData.Location = new System.Drawing.Point(478, 64);
+            this.cartesianCustomerData.Location = new System.Drawing.Point(470, 64);
             this.cartesianCustomerData.Name = "cartesianCustomerData";
             this.cartesianCustomerData.Size = new System.Drawing.Size(358, 348);
             this.cartesianCustomerData.TabIndex = 0;

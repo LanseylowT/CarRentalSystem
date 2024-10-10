@@ -47,7 +47,10 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                     cmd.Parameters.AddWithValue("p_brand", car.Brand);
                     cmd.Parameters.AddWithValue("p_model", car.Model);
                     cmd.Parameters.AddWithValue("p_pricePerDay", car.PricePerDay);
+                    cmd.Parameters.AddWithValue("p_availability", car.Availability);
                     cmd.Parameters.AddWithValue("p_imagePath", car.ImagePath);
+                    
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

@@ -2,6 +2,7 @@
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
 
+
 namespace CarRentalSystem.Handlers.CommandHandlers
 {
     public class InquiryCommandHandler
@@ -25,6 +26,7 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                 cmd.Parameters.AddWithValue("p_customerId", inquiry.CustomerId);
                 cmd.Parameters.AddWithValue("p_carId", inquiry.CarId);
                 cmd.Parameters.AddWithValue("p_status", inquiry.Status);
+                cmd.Parameters.AddWithValue("p_date", inquiry.Date);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -43,6 +45,22 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                 cmd.Parameters.AddWithValue("p_customerId", inquiry.CustomerId);
                 cmd.Parameters.AddWithValue("p_carId", inquiry.CarId);
                 cmd.Parameters.AddWithValue("p_status", inquiry.Status);
+                cmd.Parameters.AddWithValue("p_date", inquiry.Date);
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+
+    
+    public void UpdateInquiryStatus(int inquiryId, string newStatus)
+    {
+        using (MySqlConnection conn = new MySqlConnection(_connectionString))
+        {
+            conn.Open();
+            using (MySqlCommand cmd = new MySqlCommand("UpdateInquiryStatus", conn))
+            {
+                cmd.Parameters.AddWithValue("p_newStatus", newStatus);
+                cmd.Parameters.AddWithValue("p_inquiryId", inquiryId);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -58,6 +76,19 @@ namespace CarRentalSystem.Handlers.CommandHandlers
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("p_inquiryId", inquiryId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void DeleteRentedInquiries()
+    {
+        using (MySqlConnection conn = new MySqlConnection(_connectionString))
+        {
+            conn.Open();
+            using (MySqlCommand cmd = new MySqlCommand("DeleteRentedInquiry", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
             }
         }

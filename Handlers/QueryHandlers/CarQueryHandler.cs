@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Documents;
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
 
@@ -66,11 +67,11 @@ namespace CarRentalSystem.Handlers.QueryHandlers
                         {
                             car = new Car
                             {
-                                CarId = (int)reader["ID"],
+                                CarId = reader["ID"] != DBNull.Value ? Convert.ToInt32(reader["ID"]) : 0,
                                 Brand = reader["brand"].ToString(),
                                 Model = reader["model"].ToString(),
                                 PricePerDay = (decimal)reader["pricePerDay"],
-                                Availability = (bool)reader["availability"],
+                                Availability = Convert.ToBoolean(Convert.ToInt32(reader["availability"])),
                                 ImagePath = reader["imagePath"].ToString()
                             };
                         }
@@ -79,6 +80,38 @@ namespace CarRentalSystem.Handlers.QueryHandlers
             }
 
             return car;
+        }
+
+        public List<Car> GetAvailableCars()
+        {
+            var cars = new List<Car>();
+
+            using (MySqlConnection conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("GetAvailableCars", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cars.Add(new Car
+                            {
+                                CarId = reader["ID"] != DBNull.Value ? Convert.ToInt32(reader["ID"]) : 0,
+                                Brand = reader["Brand"].ToString(),
+                                Model = reader["Model"].ToString(),
+                                PricePerDay = (decimal)reader["PricePerDay"],
+                                Availability = Convert.ToBoolean(Convert.ToInt32(reader["availability"])),
+                                ImagePath = reader["ImagePath"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return cars;
         }
     }
 }

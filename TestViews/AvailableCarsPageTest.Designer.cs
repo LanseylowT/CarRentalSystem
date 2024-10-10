@@ -251,12 +251,13 @@ namespace CarRentalSystem.TestViews
             // 
             // dtgCarList
             // 
+            this.dtgCarList.AllowUserToAddRows = false;
             this.dtgCarList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgCarList.Location = new System.Drawing.Point(11, 71);
             this.dtgCarList.Name = "dtgCarList";
             this.dtgCarList.Size = new System.Drawing.Size(836, 230);
             this.dtgCarList.TabIndex = 1;
-            dtgCarList.CellClick += dtgCarList_CellClick;
+            this.dtgCarList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgCarList_CellClick);
             // 
             // txtSearch
             // 

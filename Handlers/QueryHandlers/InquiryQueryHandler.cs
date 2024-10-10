@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
@@ -33,7 +34,8 @@ namespace CarRentalSystem.Handlers.QueryHandlers
                                 InquiryId = (int)reader["ID"],
                                 CustomerId = (int)reader["customerID"],
                                 CarId = (int)reader["carID"],
-                                Status = reader["status"].ToString()
+                                Status = reader["status"].ToString(),
+                                Date = (DateTime)reader["date"]
                             });
                         }
                     }

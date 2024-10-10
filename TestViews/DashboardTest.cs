@@ -56,6 +56,16 @@ namespace CarRentalSystem.TestViews
         {
             LoadForm(new RentCarPageTest());
         }
+
+        private void btnInquiry_Click(object sender, EventArgs e)
+        {
+            LoadForm(new InquiryPageTest(pnlMain));
+        }
+
+        private void DashboardTest_Load(object sender, EventArgs e)
+        {
+            LoadForm(new HomePageTest());
+        }
     }
     
     // 883, 625 - Size of pnlMain

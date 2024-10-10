@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using CarRentalSystem.Models;
 using MySql.Data.MySqlClient;
 
@@ -14,7 +15,7 @@ namespace CarRentalSystem.Handlers.CommandHandlers
         }
         
         // Add a new customer
-        public void AddCustomer(Customer customer)
+        public int AddCustomer(Customer customer)
         {
             using (MySqlConnection conn = new MySqlConnection(_connnectionString))
             {
@@ -22,15 +23,25 @@ namespace CarRentalSystem.Handlers.CommandHandlers
                 using (MySqlCommand cmd = new MySqlCommand("AddCustomer", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    // cmd.Parameters.AddWithValue("ID", customer.CustomerId);
                     cmd.Parameters.AddWithValue("p_firstName", customer.FirstName);
                     cmd.Parameters.AddWithValue("p_lastName", customer.LastName);
                     cmd.Parameters.AddWithValue("p_middleName", customer.MiddleName);
                     cmd.Parameters.AddWithValue("p_gender", customer.Gender);
                     cmd.Parameters.AddWithValue("p_contactInfo", customer.ContactInfo);
                     cmd.Parameters.AddWithValue("p_emailAddress", customer.EmailAddress);
-                    cmd.ExecuteNonQuery();
+                    // Execute the command and retrieve the CustomerId
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return Convert.ToInt32(reader["CustomerId"]);
+                        }
+                    }
                 }
             }
+
+            return 0;
         }
         
         

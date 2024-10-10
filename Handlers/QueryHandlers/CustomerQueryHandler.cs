@@ -5,11 +5,11 @@ using MySql.Data.MySqlClient;
 
 namespace CarRentalSystem.Handlers.QueryHandlers
 {
-    public class CustomerQueyHandler
+    public class CustomerQueryHandler
     {
         private readonly string _connectionString;
 
-        public CustomerQueyHandler(string connectionString)
+        public CustomerQueryHandler(string connectionString)
         {
             _connectionString = connectionString;
         }
