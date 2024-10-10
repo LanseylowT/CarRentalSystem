@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CarRentalSystem.Common;
+using DotNetEnv;
 
 namespace CarRentalSystem.TestViews
 {
@@ -16,6 +18,12 @@ namespace CarRentalSystem.TestViews
         public DashboardTest()
         {
             InitializeComponent();
+            Env.Load();
+            
+            var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+            var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+            
+            Console.WriteLine($"DB User: {dbUser}, DB Password: {dbPassword}");
         }
 
         // private void DashboardTest_Load(object sender, EventArgs e)

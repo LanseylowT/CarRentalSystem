@@ -1,11 +1,25 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.IO;
+using DotNetEnv;
 using MySql.Data.MySqlClient;
 
 namespace CarRentalSystem.Common
 {
     public static class Commons
     {
-        public static string ConnectionString = "Server=localhost;Database=carrental;User ID=root;Password=Lansilot@123;";
+        private static readonly string dbUser;
+        private static readonly string dbPassword;
+        public static readonly string ConnectionString;
+
+        static Commons()
+        {
+            Env.Load(Path.Combine("..", "..", ".env"));
+            // ListAllEnvironmentVariables();
+            dbUser = Environment.GetEnvironmentVariable("db_username");
+            dbPassword = Environment.GetEnvironmentVariable("db_password");
+            ConnectionString = $"Server=localhost;Database=carrental;User ID={dbUser};Password={dbPassword}";
+        }
 
         private static void ResetAutoIncrements()
         {
